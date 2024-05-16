@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CodeWars Info"
 include(":app")
+include(":presentation")
