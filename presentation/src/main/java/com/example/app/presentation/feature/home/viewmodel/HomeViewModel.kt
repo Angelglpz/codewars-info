@@ -1,4 +1,4 @@
-package com.example.app.presentation.home.viewmodel
+package com.example.app.presentation.feature.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

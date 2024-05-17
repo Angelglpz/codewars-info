@@ -6,31 +6,20 @@ plugins {
 }
 
 android {
-    namespace = "com.example.app.presentation"
+    namespace = "com.example.domain"
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 27
+        minSdk = 29
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
-    }
-
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -48,25 +37,30 @@ kapt {
 
 dependencies {
 
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.foundation.android)
-    implementation(libs.androidx.material3.android)
+    implementation(libs.material)
+    implementation(project(":presentation"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    // Android Studio Preview support
-    implementation(libs.androidx.ui.tooling.preview)
-    debugImplementation(libs.androidx.ui.tooling)
-    // Optional - Integration with ViewModels
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    // Optional - Integration with activities
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.ui)
 
     // DI
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+    // Retrofit
+    implementation(libs.retrofit)
+
+    // Moshi
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+
+    // Moshi Converter
+    implementation(libs.converter.moshi)
+
+    // OkHttp
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
 }

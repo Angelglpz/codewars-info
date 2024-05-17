@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.app.presentation.home.screen.HomeScreen
+import com.example.app.presentation.feature.home.screen.HomeScreen
 
 @Composable
 fun CodeWarsInfoNavigation() {
