@@ -1,10 +1,9 @@
-package com.example.domain.repository
+package com.example.data.datasource
 
 import com.example.domain.model.user.User
 import com.example.data.user.UserDTOResponse
 import com.example.domain.util.ApiResponseStatus
 
-
-interface UserRepository {
+interface CodeWarsDataSource {
     suspend fun getUser(userName: String): ApiResponseStatus<User>
 }

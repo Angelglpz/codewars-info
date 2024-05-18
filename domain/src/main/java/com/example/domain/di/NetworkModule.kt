@@ -1,7 +1,7 @@
 package com.example.domain.di
 
 import com.example.domain.CODE_WARS_BASE_URL
-import com.example.domain.api.CodeWarsInfoApiService
+import com.example.data.api.CodeWarsInfoApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +40,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): CodeWarsInfoApiService =
-        retrofit.create(CodeWarsInfoApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): com.example.data.api.CodeWarsInfoApiService =
+        retrofit.create(com.example.data.api.CodeWarsInfoApiService::class.java)
 }

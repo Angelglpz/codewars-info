@@ -1,4 +1,4 @@
-package com.example.domain.response.user
+package com.example.data.user
 
 data class RankDTO(
     val rank: Int,

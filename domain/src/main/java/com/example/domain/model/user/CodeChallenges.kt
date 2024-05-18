@@ -1,4 +1,4 @@
-package com.example.app.presentation.model.user
+package com.example.domain.model.user
 
 data class CodeChallenges(
     val totalAuthored: Int,

@@ -23,3 +23,5 @@ rootProject.name = "CodeWars Info"
 include(":app")
 include(":presentation")
 include(":domain")
+include(":domain")
+include(":data")

@@ -1,6 +1,6 @@
-package com.example.domain.api
+package com.example.data.api
 
-import com.example.domain.response.user.UserDTOResponse
+import com.example.data.user.UserDTOResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
