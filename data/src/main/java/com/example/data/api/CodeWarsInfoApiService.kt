@@ -2,9 +2,9 @@ package com.example.data.api
 
 import com.example.data.user.UserDTOResponse
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface CodeWarsInfoApiService {
-    @GET("users")
-    suspend fun getUser(@Query("user") userName: String): UserDTOResponse
+    @GET("users/{user}")
+    suspend fun getUser(@Path("user") userName: String): UserDTOResponse
 }

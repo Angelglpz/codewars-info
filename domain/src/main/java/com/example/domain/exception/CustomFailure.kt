@@ -1,6 +1,6 @@
 package com.example.domain.exception
 
-sealed class CustomFailure(data: String) {
-    data object GenericError: CustomFailure("Generic error")
+sealed class CustomFailure(val data: Any? = null) {
+    data object GenericError: CustomFailure(data = "Generic error")
     class InternalServerError(data: String): CustomFailure(data)
 }

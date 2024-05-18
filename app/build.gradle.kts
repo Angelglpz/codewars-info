@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    kotlin("kapt")
     alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -59,6 +59,8 @@ kapt {
 
 dependencies {
     implementation(project(":presentation"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
     val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)

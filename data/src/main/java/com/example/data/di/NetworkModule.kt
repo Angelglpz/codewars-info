@@ -1,7 +1,6 @@
-package com.example.domain.di
+package com.example.data.di
 
 import com.example.domain.CODE_WARS_BASE_URL
-import com.example.data.api.CodeWarsInfoApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
