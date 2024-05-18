@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.app.presentation.theme.CodeWarsInfoTheme
+import com.example.app.presentation.theme.PaddingSmall
 import com.example.codewarsinfo.navigation.CodeWarsInfoNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CodeWarsInfoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize().padding(PaddingSmall)) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
                         CodeWarsInfoNavigation()
                     }
