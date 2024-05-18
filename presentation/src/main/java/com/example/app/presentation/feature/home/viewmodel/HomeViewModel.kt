@@ -22,9 +22,10 @@ class HomeViewModel @Inject constructor(
     var state by mutableStateOf(HomeState())
 
 
-    fun onEvent(event: HomeEvent) {
+    internal fun onEvent(event: HomeEvent) {
         when (event) {
-            is HomeEvent.OnButtonClick -> getUserName(event.value)
+            is HomeEvent.OnButtonClick -> getUserName(event.text)
+            is HomeEvent.OnTextChanged -> state = state.copy(userName = event.text)
         }
     }
 

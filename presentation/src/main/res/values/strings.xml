@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="username_placeholder_text">Nombre de usuario</string>
+    <string name="continue_button_text">Continuar</string>
+</resources>
