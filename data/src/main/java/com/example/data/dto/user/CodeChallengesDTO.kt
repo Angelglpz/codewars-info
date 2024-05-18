@@ -1,4 +1,4 @@
-package com.example.data.user
+package com.example.data.dto.user
 
 
 data class CodeChallengesDTO(

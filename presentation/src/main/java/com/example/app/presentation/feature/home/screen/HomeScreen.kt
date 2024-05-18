@@ -32,7 +32,7 @@ private fun HomeScreen(state: HomeState, onEvent: (HomeEvent) -> Unit) {
                 name = state.userName
             )
             ButtonTest(onEvent)
-            Text(text = state.honor.toString())
+            Text(text = (state.honor ?: 0).toString())
         }
     }
 }
