@@ -4,6 +4,6 @@ import com.example.domain.model.user.User
 import com.example.domain.util.ApiResponseStatus
 
 
-interface IUserRepository {
+interface UserRepository {
     suspend fun getUser(userName: String): ApiResponseStatus<User>
 }

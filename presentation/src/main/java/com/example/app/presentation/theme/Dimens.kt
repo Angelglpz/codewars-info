@@ -4,3 +4,5 @@ import androidx.compose.ui.unit.dp
 
 val PaddingSmall = 6.dp
 val PaddingMedium = 16.dp
+
+val ImageAspectRatio = 1.77f
