@@ -1,6 +1,8 @@
 package com.example.data.di
 
+import com.example.data.repository.UserPreferencesRepositoryImpl
 import com.example.data.repository.UserRepositoryImpl
+import com.example.domain.repository.UserPreferencesRepository
 import com.example.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -14,4 +16,8 @@ internal interface RepositoryModule {
     @Binds
     @Singleton
     fun provideUserRepository(impl: UserRepositoryImpl): UserRepository
+
+    @Binds
+    @Singleton
+    fun provideUserPreferencesRepository(impl: UserPreferencesRepositoryImpl): UserPreferencesRepository
 }
