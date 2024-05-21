@@ -1,7 +1,6 @@
 package com.example.data.repository
 
 import com.example.data.datasource.datastore.CodeWarsPreferencesDataSource
-import com.example.domain.model.userdata.UserData
 import com.example.domain.repository.UserPreferencesRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -16,5 +15,9 @@ internal class UserPreferencesRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             preferencesDataSource.getUserName()
         }
+    }
+
+    override suspend fun saveUserName(userName: String) {
+        preferencesDataSource.saveUserName(userName)
     }
 }

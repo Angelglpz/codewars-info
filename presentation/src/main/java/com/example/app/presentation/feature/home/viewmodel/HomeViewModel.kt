@@ -8,8 +8,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app.presentation.feature.home.state.HomeState
-import com.example.app.presentation.util.Argument
+import com.example.app.presentation.util.KeepConnectedArgument
+import com.example.app.presentation.util.UserNameArgument
 import com.example.domain.usecase.GetUserUseCase
+import com.example.domain.usecase.SaveUserConnectedPreferencesUseCase
 import com.example.domain.util.ApiResponseStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,14 +20,25 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: GetUserUseCase,
+    private val saveUserConnectedPreferencesUseCase: SaveUserConnectedPreferencesUseCase
 ) : ViewModel() {
 
     var state by mutableStateOf(HomeState())
 
     init {
-        val userName: String = checkNotNull(savedStateHandle[Argument])
+        val userName: String = savedStateHandle[UserNameArgument] ?: ""
         getUserName(userName)
+        val keepUserConnected: Boolean = savedStateHandle[KeepConnectedArgument] ?: false
+        if (keepUserConnected) {
+            saveUserName(userName)
+        }
+    }
+
+    private fun saveUserName(userName: String) {
+        viewModelScope.launch {
+            saveUserConnectedPreferencesUseCase(userName)
+        }
     }
 
     private fun getUserName(userName: String) {

@@ -8,23 +8,28 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.app.presentation.feature.access.screen.AccessRoute
 import com.example.app.presentation.feature.home.screen.HomeRoute
-import com.example.app.presentation.util.Argument
+import com.example.app.presentation.util.KeepConnectedArgument
+import com.example.app.presentation.util.UserNameArgument
 
 @Composable
-fun CodeWarsInfoNavigation(startDestination: String = NavigationRoute.Access.route) {
+fun CodeWarsInfoNavigation(startRouteDestination: String) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = startDestination) {
+    NavHost(navController = navController, startDestination = startRouteDestination) {
         composable(route = NavigationRoute.Access.route) {
-            AccessRoute(onContinueButtonClicked = {
-                navController.navigate(NavigationRoute.Home.navigateWithArgument(it))
+            AccessRoute(onContinueButtonClicked = { userName, keepConnected ->
+                navController.navigate(NavigationRoute.Home.navigateWithArgument(userName, keepConnected))
             })
         }
         composable(
             route = NavigationRoute.Home.route, arguments = listOf(
-                navArgument(Argument) {
+                navArgument(UserNameArgument) {
                     type = NavType.StringType
-                })
+                },
+                navArgument(KeepConnectedArgument) {
+                    type = NavType.BoolType
+                }
+            )
         ) {
             HomeRoute()
         }

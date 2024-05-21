@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -27,7 +28,7 @@ import com.example.app.presentation.theme.PaddingMedium
 @Composable
 fun AccessRoute(
     viewModel: AccessViewModel = hiltViewModel(),
-    onContinueButtonClicked: (String) -> Unit
+    onContinueButtonClicked: (String, Boolean) -> Unit
 ) {
     AccessScreen(
         state = viewModel.state,
@@ -37,7 +38,11 @@ fun AccessRoute(
 }
 
 @Composable
-private fun AccessScreen(state: AccessState, onEvent: (HomeEvent) -> Unit, onContinueButtonClicked: (String) -> Unit) {
+private fun AccessScreen(
+    state: AccessState,
+    onEvent: (HomeEvent) -> Unit,
+    onContinueButtonClicked: (String, Boolean) -> Unit
+) {
     Box(
         modifier = Modifier
             .padding(PaddingMedium)
@@ -60,11 +65,17 @@ private fun AccessScreen(state: AccessState, onEvent: (HomeEvent) -> Unit, onCon
                     Text(text = stringResource(R.string.username_placeholder_text))
                 }, singleLine = true
             )
+            Checkbox(
+                checked = state.keepConnectedChecked,
+                onCheckedChange = { onEvent(HomeEvent.OnCheckedChanged(it)) }
+            )
             Button(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(PaddingMedium),
-                onClick = { onContinueButtonClicked(state.userName) }) {
+                onClick = {
+                    onContinueButtonClicked(state.userName, state.keepConnectedChecked)
+                }) {
                 Text(text = stringResource(R.string.continue_button_text))
             }
         }
@@ -75,6 +86,6 @@ private fun AccessScreen(state: AccessState, onEvent: (HomeEvent) -> Unit, onCon
 @Composable
 fun AccessScreenPreview() {
     CodeWarsInfoTheme {
-        AccessScreen(AccessState("usuario"), {}, {})
+        AccessScreen(AccessState("usuario"), {}, {_, _ -> })
     }
 }
