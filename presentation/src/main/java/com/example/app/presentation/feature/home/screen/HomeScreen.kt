@@ -19,8 +19,9 @@ fun HomeRoute(
 ) {
     if (viewModel.state.showLoading) {
         LoadingScreen()
+    } else {
+        HomeScreen(state = viewModel.state)
     }
-    HomeScreen(state = viewModel.state)
 }
 
 @Composable

@@ -3,4 +3,6 @@
 
     <string name="username_placeholder_text">Nombre de usuario</string>
     <string name="continue_button_text">Continuar</string>
+    <string name="keep_connected_text">Mantener conectado</string>
+    <string name="codewars_logo">CodeWars Logo</string>
 </resources>

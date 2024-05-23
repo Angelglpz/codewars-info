@@ -15,11 +15,11 @@ internal class MainActivityViewModel @Inject constructor(
     private val getUserConnectedPreferencesUseCase: GetUserConnectedPreferencesUseCase
 ) : ViewModel() {
 
-    var showSplash = true
-        private set
+    private val _showSplash = MutableStateFlow(true)
+    val showSplash: StateFlow<Boolean> = _showSplash
 
-    var startScreenNavigationRoute = NavigationRoute.Access.route
-        private set
+    private val _userName = MutableStateFlow("")
+    val userName: StateFlow<String> = _userName
 
     init {
         viewModelScope.launch {
@@ -29,13 +29,10 @@ internal class MainActivityViewModel @Inject constructor(
 
     private suspend fun getUserConnected() {
         getUserConnectedPreferencesUseCase().collect {
-            startScreenNavigationRoute = if (it.isNotEmpty()) {
-                // If user was saved, keepConnected keep on true
-                NavigationRoute.Home.navigateWithArgument(it, true)
-            } else {
-                NavigationRoute.Access.route
+            _userName.value = it.ifEmpty {
+                ""
             }
-            showSplash = false
+            _showSplash.value = false
         }
     }
 }

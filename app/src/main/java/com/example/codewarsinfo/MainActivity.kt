@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -26,23 +27,33 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MainActivityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
+        val viewModel: MainActivityViewModel by viewModels()
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         splashScreen.setKeepOnScreenCondition {
-            viewModel.showSplash
+            viewModel.showSplash.value
         }
         enableEdgeToEdge()
-        setContent {
-            CodeWarsInfoTheme(dynamicColor = false) {
-                Scaffold(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(PaddingSmall)
-                ) { innerPadding ->
-                    Box(modifier = Modifier.padding(innerPadding)) {
-                        CodeWarsInfoNavigation(viewModel.startScreenNavigationRoute)
+
+        // Observe showSplash and startScreenNavigationRoute
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showSplash.collect { showSplash ->
+                    if (!showSplash) {
+                        setContent {
+                            CodeWarsInfoTheme(dynamicColor = false) {
+                                Scaffold(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(PaddingSmall)
+                                ) { innerPadding ->
+                                    Box(modifier = Modifier.padding(innerPadding)) {
+                                        CodeWarsInfoNavigation(viewModel.userName.collectAsState().value)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

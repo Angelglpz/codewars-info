@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
     var state by mutableStateOf(HomeState())
 
     init {
-        val userName: String = savedStateHandle[UserNameArgument] ?: ""
+        val userName: String = savedStateHandle.get<String>(UserNameArgument) ?: ""
         getUserName(userName)
         val keepUserConnected: Boolean = savedStateHandle[KeepConnectedArgument] ?: false
         if (keepUserConnected) {

@@ -1,6 +1,7 @@
 package com.example.codewarsinfo.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,10 +13,25 @@ import com.example.app.presentation.util.KeepConnectedArgument
 import com.example.app.presentation.util.UserNameArgument
 
 @Composable
-fun CodeWarsInfoNavigation(startRouteDestination: String) {
+fun CodeWarsInfoNavigation(userName: String) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = startRouteDestination) {
+    NavHost(navController = navController, startDestination = NavigationRoute.Intermediate.route) {
+        composable(route = NavigationRoute.Intermediate.route) {
+            // Navigate immediately to the route with parameters
+            LaunchedEffect(Unit) {
+                if (userName.isEmpty()) {
+                    navController.navigate(NavigationRoute.Access.route)
+                } else {
+                    navController.navigate(
+                        NavigationRoute.Home.navigateWithArgument(
+                            userName = userName,
+                            keepConnected = true
+                        )
+                    )
+                }
+            }
+        }
         composable(route = NavigationRoute.Access.route) {
             AccessRoute(onContinueButtonClicked = { userName, keepConnected ->
                 navController.navigate(NavigationRoute.Home.navigateWithArgument(userName, keepConnected))
