@@ -1,6 +1,7 @@
 package com.example.data.di
 
-import com.example.domain.CODE_WARS_BASE_URL
+import com.example.data.api.CodeWarsInfoApiService
+import com.example.domain.util.CODE_WARS_BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -46,6 +47,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): com.example.data.api.CodeWarsInfoApiService =
-        retrofit.create(com.example.data.api.CodeWarsInfoApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): CodeWarsInfoApiService =
+        retrofit.create(CodeWarsInfoApiService::class.java)
 }

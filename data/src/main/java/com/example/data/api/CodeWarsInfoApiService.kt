@@ -1,6 +1,6 @@
 package com.example.data.api
 
-import com.example.data.dto.user.UserDTOResponse
+import com.example.data.dto.user.response.UserDTOResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

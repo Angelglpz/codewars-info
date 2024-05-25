@@ -1,5 +1,7 @@
-package com.example.data.dto.user
+package com.example.data.dto.user.response
 
+import com.example.data.dto.user.CodeChallengesDTO
+import com.example.data.dto.user.RanksDTO
 import com.squareup.moshi.Json
 
 data class UserDTOResponse(

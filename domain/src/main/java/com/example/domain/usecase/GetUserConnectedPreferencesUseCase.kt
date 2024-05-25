@@ -7,5 +7,5 @@ import javax.inject.Inject
 class GetUserConnectedPreferencesUseCase @Inject constructor(
     private val preferencesRepository: UserPreferencesRepository
 ) {
-    suspend operator fun invoke(): Flow<String> = preferencesRepository.getUserName()
+    operator fun invoke(): Flow<String> = preferencesRepository.getUserName()
 }

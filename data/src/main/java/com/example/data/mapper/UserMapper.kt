@@ -7,7 +7,7 @@ import com.example.domain.model.user.User
 import com.example.data.dto.user.CodeChallengesDTO
 import com.example.data.dto.user.RankDTO
 import com.example.data.dto.user.RanksDTO
-import com.example.data.dto.user.UserDTOResponse
+import com.example.data.dto.user.response.UserDTOResponse
 
 fun UserDTOResponse.toModel(): User =
     User(

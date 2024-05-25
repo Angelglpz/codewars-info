@@ -12,7 +12,7 @@ internal class CodeWarsPreferencesDataSourceImpl @Inject constructor(
         codeWarsDataStore.setValue(key = KEY_USERNAME, value = userName)
     }
 
-    override suspend fun getUserName(): Flow<String> {
+    override fun getUserName(): Flow<String> {
         return codeWarsDataStore.getValueFlow(
             key = KEY_USERNAME,
             defaultValue = ""

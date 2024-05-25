@@ -8,13 +8,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class UserPreferencesRepositoryImpl @Inject constructor(
-    private val preferencesDataSource: CodeWarsPreferencesDataSource,
-    private val ioDispatcher: CoroutineDispatcher
+    private val preferencesDataSource: CodeWarsPreferencesDataSource
 ) : UserPreferencesRepository {
-    override suspend fun getUserName(): Flow<String> {
-        return withContext(ioDispatcher) {
-            preferencesDataSource.getUserName()
-        }
+    override fun getUserName(): Flow<String> {
+        return preferencesDataSource.getUserName()
     }
 
     override suspend fun saveUserName(userName: String) {

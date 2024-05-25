@@ -5,12 +5,12 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-suspend fun <T> networkCall(
-    call: suspend () -> T
-): ApiResponseStatus<T> {
-    return try {
-        ApiResponseStatus.Success(call())
-    } catch (e: Exception) {
-        ApiResponseStatus.Failure(CustomFailure.ServerError(e))
-    }
-}
+//suspend fun <T> networkCall(
+//    call: suspend () -> T
+//): ApiResponseStatus<T> {
+//    return try {
+//        ApiResponseStatus.Success(call())
+//    } catch (e: Exception) {
+//        ApiResponseStatus.Failure(CustomFailure.ServerError(e))
+//    }
+//}
