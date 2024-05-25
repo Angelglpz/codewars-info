@@ -31,7 +31,7 @@ private fun HomeScreen(state: HomeState) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
     CodeWarsInfoTheme {

@@ -11,6 +11,6 @@ suspend fun <T> networkCall(
     return try {
         ApiResponseStatus.Success(call())
     } catch (e: Exception) {
-        ApiResponseStatus.Failure(CustomFailure.InternalServerError(e.message ?: ""))
+        ApiResponseStatus.Failure(CustomFailure.ServerError(e))
     }
 }
