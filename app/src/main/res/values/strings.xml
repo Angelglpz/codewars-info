@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CodeWars Info</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="home_screen_label">Home</string>
 </resources>
