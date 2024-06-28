@@ -66,6 +66,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.ui)
 
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
     // DI
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)

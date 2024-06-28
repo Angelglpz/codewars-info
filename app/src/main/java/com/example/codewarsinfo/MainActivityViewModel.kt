@@ -1,5 +1,9 @@
 package com.example.codewarsinfo
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.codewarsinfo.navigation.NavigationRoute
@@ -18,8 +22,11 @@ internal class MainActivityViewModel @Inject constructor(
     private val _showSplash = MutableStateFlow(true)
     val showSplash: StateFlow<Boolean> = _showSplash
 
-    private val _userName = MutableStateFlow("")
-    val userName: StateFlow<String> = _userName
+    var userName = MutableStateFlow("")
+
+    var uiState by mutableStateOf<UIState>(UIState.Loading)
+    var userConfigState = UserConfigState("", false)
+        private set
 
     init {
         viewModelScope.launch {
@@ -29,10 +36,19 @@ internal class MainActivityViewModel @Inject constructor(
 
     private suspend fun getUserConnected() {
         getUserConnectedPreferencesUseCase().collect {
-            _userName.value = it.ifEmpty {
+            userName.value = it.ifEmpty {
                 ""
             }
-            _showSplash.value = false
+            uiState = if (userName.value.isEmpty()) {
+                UIState.Success(NavigationRoute.Access.route)
+            } else {
+                userConfigState = UserConfigState(userName.value, true)
+                UIState.Success(NavigationRoute.Home.route)
+            }
         }
+    }
+
+    fun editUserConfigState(userName: String, keepConnected: Boolean) {
+        userConfigState = UserConfigState(userName, keepConnected)
     }
 }

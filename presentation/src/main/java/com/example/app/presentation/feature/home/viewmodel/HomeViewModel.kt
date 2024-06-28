@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.app.presentation.feature.home.state.HomeState
 import com.example.app.presentation.util.KeepConnectedArgument
 import com.example.app.presentation.util.UserNameArgument
+import com.example.domain.usecase.GetUserConnectedPreferencesUseCase
 import com.example.domain.usecase.GetUserUseCase
 import com.example.domain.usecase.SaveUserConnectedPreferencesUseCase
 import com.example.domain.util.ApiResponseStatus
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getUserUseCase: GetUserUseCase,
-    private val saveUserConnectedPreferencesUseCase: SaveUserConnectedPreferencesUseCase
+    private val saveUserConnectedPreferencesUseCase: SaveUserConnectedPreferencesUseCase,
+    private val getUserConnectedPreferencesUseCase: GetUserConnectedPreferencesUseCase
 ) : ViewModel() {
 
     var state by mutableStateOf(HomeState())
@@ -32,6 +34,16 @@ class HomeViewModel @Inject constructor(
         val keepUserConnected: Boolean = savedStateHandle[KeepConnectedArgument] ?: false
         if (keepUserConnected) {
             saveUserName(userName)
+        }
+
+        if (userName.isEmpty()) {
+            viewModelScope.launch {
+                getUserConnectedPreferencesUseCase().collect {
+                    if (it.isNotEmpty()) {
+                        getUserName(it)
+                    }
+                }
+            }
         }
     }
 

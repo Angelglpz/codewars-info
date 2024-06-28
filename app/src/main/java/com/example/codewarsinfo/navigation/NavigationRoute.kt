@@ -27,16 +27,5 @@ internal sealed class NavigationRoute(
     ) {
         fun navigateWithArgument(userName: String, keepConnected: Boolean = false) =
             "$HomeScreenDestination/$userName/$keepConnected"
-
-        val arguments = listOf(
-            navArgument(UserNameArgument) {
-                type = NavType.StringType
-            },
-            navArgument(KeepConnectedArgument) {
-                type = NavType.BoolType
-            }
-        )
     }
-
-    data object Intermediate : NavigationRoute(IntermediateScreenDestination)
 }

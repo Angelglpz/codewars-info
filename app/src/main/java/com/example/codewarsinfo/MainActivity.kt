@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
@@ -44,27 +46,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // Set the condition for keeping the splash screen on.
         splashScreen.setKeepOnScreenCondition {
-            viewModel.showSplash.value
+            when (viewModel.uiState) {
+                is UIState.Success -> false
+                is UIState.Loading -> true
+            }
         }
         // Enable edge-to-edge display for the activity.
         enableEdgeToEdge()
 
-        // Launch a coroutine in the lifecycle scope of the activity.
-        lifecycleScope.launch {
-            // Repeat the following block every time the lifecycle state is at least STARTED.
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                // Collect the showSplash state from the ViewModel.
-                viewModel.showSplash.collect { showSplash ->
-                    // If the splash screen is not showing, set the content of the activity.
-                    if (!showSplash) {
-                        setContent {
-                            // Apply the theme for the application.
-                            CodeWarsInfoTheme(dynamicColor = false) {
-                                // CodeWarsInfoNavigation handles the navigation within the application.
-                                CodeWarsInfoNavigation(viewModel)
-                            }
-                        }
-                    }
+        setContent {
+            CodeWarsInfoTheme(dynamicColor = false) {
+                if (viewModel.uiState is UIState.Success) {
+                    CodeWarsInfoNavigation(
+                        startDestinationRoute = (viewModel.uiState as UIState.Success).route,
+                        userConfigState = viewModel.userConfigState,
+                        viewModel = viewModel
+                    )
                 }
             }
         }
